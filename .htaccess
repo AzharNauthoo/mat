@@ -1,0 +1,27 @@
+
+RewriteEngine On
+RewriteBase /
+
+
+
+
+#1) redirect file.html to file
+RewriteCond %{THE_REQUEST} /([^.]+).html [NC]
+RewriteRule .+ /%1 [L,R=301]
+#2) rewrite /file to file.html
+ RewriteCond %{REQUEST_FILENAME}.html -f
+ RewriteRule (.*)/?$ /$1.html [L]
+
+
+
+
+RewriteCond %{HTTPS} off 
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+
+RewriteCond %{HTTP_HOST} !^www.mauritiusairport-transfers.com$ [NC]
+RewriteRule ^(.*)$ http://www.mauritiusairport-transfers.com$1 [L,R=301]
+
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
